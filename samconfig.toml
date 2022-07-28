@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "puppetter-crawler"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-27ou0rkinqic"
+s3_prefix = "puppetter-crawler"
+region = "us-west-1"
+capabilities = "CAPABILITY_IAM"
+image_repositories = ["PuppetterFunction=645028103369.dkr.ecr.us-west-1.amazonaws.com/puppettercrawler45650fa2/puppetterfunction413077d7repo"]

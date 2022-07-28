@@ -1,0 +1,13 @@
+{
+  "name": "puppter-lambda",
+  "version": "1.0.0",
+  "description": "hello world sample for NodeJS",
+  "main": "app.js",
+  "author": "SAM CLI",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^15.5.0"
+  },
+  "scripts": {},
+  "devDependencies": {}
+}
