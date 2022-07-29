@@ -12,7 +12,7 @@ const process_html = ($) => {
     const data = $('.row.search-item').map((_, row) => {
         const name = $('.title', row).text();
 
-        const age = $('.age', row).text();
+        var age = $('.age', row).text();
         age = (age && age.split('Age ')[1]) || ''
 
         const locations = $('.lived-in li', row).map((_, el) => $(el).text()).toArray().join(';')
@@ -36,13 +36,13 @@ const process_html = ($) => {
 
 const get_data = async ({ firstName, lastName, state, city }) => {
     var url = `https://centeda.com/profile/search?fname=${firstName}&lname=${lastName}&state=${state}&city=${city}`;
-    var data = [];
+    var html, $, data = [];
 
     do {
         const html = await axios.get(url, { 
             timeout: 1000 * 20, 
             // proxy: {
-            //     host: 'zproxy.lum-superproxy.io',
+            //     host: 'lum-customer-hl_5ea6d9d9-zone-isp',
             //     port: 80,
             //     auth: {username: 'lum-customer-hl_5ea6d9d9-zone-isp', password: 'cg51kimwdb97'}
             // }

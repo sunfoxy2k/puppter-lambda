@@ -15,6 +15,7 @@ Resources:
       MemorySize: 800
       CodeUri: src/
       PackageType: Image
+      Timeout: 60
       Events:
         WebsiteCrawl:
           Type: HttpApi
