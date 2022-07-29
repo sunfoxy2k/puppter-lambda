@@ -1,12 +1,14 @@
 {
   "name": "puppter-lambda",
   "version": "1.0.0",
-  "description": "hello world sample for NodeJS",
+  "description": "puppeter handler",
   "main": "app.js",
   "author": "SAM CLI",
   "license": "MIT",
   "dependencies": {
-    "puppeteer": "^15.5.0"
+    "axios": "^0.27.2",
+    "axios-retry": "^3.3.1",
+    "cheerio": "^1.0.0-rc.12"
   },
   "scripts": {},
   "devDependencies": {}

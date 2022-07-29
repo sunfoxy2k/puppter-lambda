@@ -20,7 +20,7 @@ Resources:
           Type: HttpApi
           Properties:
             ApiId: !Ref HttpApi
-            Method: GET
+            Method: POST 
             Path: /
     Metadata:
       Dockerfile: Dockerfile

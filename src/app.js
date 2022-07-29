@@ -1,17 +1,34 @@
+const main = async (payload)  => {
+    const { website, ...props} = payload
+    var crawler;
 
-exports.main = async (event, context) => {
-
-    try {
-        response = {
-            'statusCode': 200,
-            'body': JSON.stringify({
-                event
-            })
-        }
-    } catch (err) {
-        console.log(err);
-        return err;
+    switch (website) {
+        case 'centeda.com':
+            crawler = require('./website-crawler/centeda_com')
+            break;    
+        default:
+            throw 'Not Support Link'
     }
 
-    return response
+    return await crawler(props)
+}
+
+exports.lambdaHandler = async (event, context) => {
+
+    try {
+        const payload = JSON.parse(event.body)
+
+        return {
+            statusCode: 200,
+            'body': JSON.stringify(
+                await main(payload)
+            )
+        }
+    } catch (err) {
+        console.log(err)
+        return {
+            statusCode :  400, 
+        }
+    }
 };
+

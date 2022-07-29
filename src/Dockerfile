@@ -13,8 +13,10 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
     AWS_REGION=$AWS_REGION
 
-COPY app.js package*.json website-crawler/*.js ${LAMBDA_TASK_ROOT}/
+COPY app.js package*.json ${LAMBDA_TASK_ROOT}/
+
+COPY website-crawler ${LAMBDA_TASK_ROOT}/website-crawler
 
 RUN npm install
 
-CMD [ "/app.main" ]
+CMD [ "/app.lambdaHandler" ]
