@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const main = async (payload)  => {
     const { website, ...props} = payload
     var crawler;
@@ -6,6 +8,9 @@ const main = async (payload)  => {
         case 'centeda.com':
             crawler = require('./website-crawler/centeda_com')
             break;    
+        case 'checkpeople.com' :
+            crawler = require('./website-crawler/checkpeople_com')
+            break
         default:
             throw 'Not Support Link'
     }

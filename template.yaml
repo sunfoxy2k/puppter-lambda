@@ -12,10 +12,10 @@ Resources:
   PuppetterFunction:
     Type: AWS::Serverless::Function
     Properties:
-      MemorySize: 800
+      MemorySize: 2048
       CodeUri: src/
       PackageType: Image
-      Timeout: 60
+      Timeout: 300
       Events:
         WebsiteCrawl:
           Type: HttpApi

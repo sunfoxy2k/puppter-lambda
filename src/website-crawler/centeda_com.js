@@ -1,12 +1,22 @@
 //  centeda.com
 // using serverside rendering HTML from the request
 // get data directly from website without Puppetter
+var axios = require('axios');
 
 const axiosRetry = require('axios-retry');
-const axios = require('axios');
 const cheerio = require('cheerio');
+const HttpsProxyAgent = require("https-proxy-agent")
+
+const httpsAgent = new HttpsProxyAgent({
+                host: 'zproxy.lum-superproxy.io',
+                port: 22225,
+                auth: `${process.env.PROXY_USER}:${process.env.PROXY_PASSWORD}`
+            })
+axios = axios.create({httpsAgent});
+
 
 axiosRetry(axios, { retries: 3 });
+
 
 const process_html = ($) => {
     const data = $('.row.search-item').map((_, row) => {
@@ -41,11 +51,6 @@ const get_data = async ({ firstName, lastName, state, city }) => {
     do {
         const html = await axios.get(url, { 
             timeout: 1000 * 20, 
-            // proxy: {
-            //     host: 'lum-customer-hl_5ea6d9d9-zone-isp',
-            //     port: 80,
-            //     auth: {username: 'lum-customer-hl_5ea6d9d9-zone-isp', password: 'cg51kimwdb97'}
-            // }
         })
 
         const $ = cheerio.load(html.data);
