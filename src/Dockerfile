@@ -17,7 +17,7 @@ COPY package*.json ${LAMBDA_TASK_ROOT}/
 
 RUN npm install
 
-COPY app.js ${LAMBDA_TASK_ROOT}/
+COPY app.js .env ${LAMBDA_TASK_ROOT}/
 
 COPY website-crawler ${LAMBDA_TASK_ROOT}/website-crawler
 

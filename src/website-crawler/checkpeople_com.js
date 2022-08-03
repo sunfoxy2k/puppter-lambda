@@ -29,24 +29,31 @@ const process_html = async (page) => {
 }
 
 const get_data = async ({ firstName, lastName, state, city }) => {
-    const browser = await puppeteer.launch({
-        args: ['--no-sandbox',
-            '--proxy-server=zproxy.lum-superproxy.io:22225'
-        ],
-    });
-    const page = await browser.newPage();
-    await page.authenticate({
-        username: process.env.PROXY_USER,
-        password: process.env.PROXY_PASSWORD
-    });
+    try {
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox',
+                '--proxy-server=zproxy.lum-superproxy.io:22225'
+            ],
+        });
+        const page = await browser.newPage();
+        await page.authenticate({
+            username: process.env.PROXY_USER,
+            password: process.env.PROXY_PASSWORD
+        });
 
-    await page.goto(`https://checkpeople.com/landing/people/gc1k/results?firstName=${firstName}&lastName=${lastName}&state=${state}&city=${city}`)
+        await page.goto(`https://checkpeople.com/landing/people/gc1k/results?firstName=${firstName}&lastName=${lastName}&state=${state}&city=${city}`, {waitUntil : 'networkidle2'})
 
-    const data = await process_html(page)
+        const data = await process_html(page)
 
-    await browser.close();
+        await browser.close();
 
-    return data
+        return data
+
+    } catch (error) {
+
+        return "ERRROR STATCK "
+
+    }
 }
 
 module.exports = get_data

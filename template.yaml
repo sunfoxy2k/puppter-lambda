@@ -4,10 +4,10 @@ Description: >
   puppter-lambda
 
 Resources:
-  HttpApi:
-    Type: AWS::Serverless::HttpApi
-    Properties:
-      CorsConfiguration: true
+  # HttpApi:
+  #   Type: AWS::Serverless::HttpApi
+  #   Properties:
+  #     CorsConfiguration: true
 
   PuppetterFunction:
     Type: AWS::Serverless::Function
@@ -18,16 +18,22 @@ Resources:
       Timeout: 300
       Events:
         WebsiteCrawl:
-          Type: HttpApi
+          Type: Api
           Properties:
-            ApiId: !Ref HttpApi
             Method: POST 
+            # TimeoutInMillis: 300000
+            Path: /
+        WebsiteCrawlOption:
+          Type: Api
+          Properties:
+            Method: OPTIONS 
             Path: /
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./src
+      
 
-Outputs:
-  PuppeteerFunctionEndpoint:
-    Value:
-      Fn::Sub: "https://${HttpApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/"
+# Outputs:
+#   PuppeteerFunctionEndpoint:
+#     Value:
+#       Fn::Sub: "https://${HttpApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/"

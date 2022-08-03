@@ -2,7 +2,7 @@
 require('dotenv').config()
 const axios = require('axios')
 
-jest.setTimeout(1000 * 60);
+jest.setTimeout(1000 * 60*5);
 
 const app = require('../src/app.js');
 var context, event = {
@@ -24,8 +24,12 @@ describe('local', () => {
         const response = await app.lambdaHandler(event, context)
 
         expect(response.statusCode).toEqual(200);
-    });
+        const data = JSON.parse(response.body)
 
+        console.log(data)
+
+        expect(data.length > 0).toBeTruthy()
+    });
     test('local-checkpeople.com', async () => {
         event.body = JSON.stringify({
             ...event.body,
@@ -35,6 +39,12 @@ describe('local', () => {
         const response = await app.lambdaHandler(event, context)
 
         expect(response.statusCode).toEqual(200);
+        
+        const data = JSON.parse(response.body)
+
+        console.log(data)
+
+        expect(data.length > 0).toBeTruthy()
     });
 });
 
@@ -46,7 +56,10 @@ describe('server', () => {
         }
         const response = await axios.post(process.env.DEV_API_CRAWL_ENDPOINT, event.body)
 
-        expect(response.statusCode).toEqual(200);
+        expect(response.status).toEqual(200);
+        
+        expect(response.data.length > 0).toBeTruthy()
+
     });
 
     test('server-checkpeople.com', async () => {
@@ -57,7 +70,9 @@ describe('server', () => {
 
         const response = await axios.post(process.env.DEV_API_CRAWL_ENDPOINT, event.body)
 
-        expect(response.statusCode).toEqual(200);
+        expect(response.status).toEqual(200);
+
+        expect(response.data.length > 0).toBeTruthy()
     });
 });
 
@@ -69,7 +84,9 @@ describe('prod', () => {
         }
         const response = await axios.post(process.env.API_CRAWL_ENDPOINT, event.body)
 
-        expect(response.statusCode).toEqual(200);
+        expect(response.status).toEqual(200);
+
+        expect(response.data.length > 0).toBeTruthy()
     });
 
     test('prod-checkpeople.com', async () => {
@@ -80,6 +97,8 @@ describe('prod', () => {
 
         const response = await axios.post(process.env.API_CRAWL_ENDPOINT, event.body)
 
-        expect(response.statusCode).toEqual(200);
+        expect(response.status).toEqual(200);
+
+        expect(response.data.length > 0).toBeTruthy()
     });
 });

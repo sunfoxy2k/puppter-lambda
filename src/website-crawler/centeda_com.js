@@ -58,6 +58,7 @@ const get_data = async ({ firstName, lastName, state, city }) => {
 
         url = $('[rel=next]').attr()
         url = url && 'https://centeda.com' + url.href
+        // url = false for DEMO
     } while (url);
 
     return data
