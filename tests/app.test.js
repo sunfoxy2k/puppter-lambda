@@ -7,7 +7,7 @@ jest.setTimeout(1000 * 60*5);
 const app = require('../src/app.js');
 var context, event = {
     body: {
-        firstName: 'Michael',
+        firstName: 'Victor',
         lastName: 'Rizzo',
         city: 'Brooklyn',
         state: 'NY'

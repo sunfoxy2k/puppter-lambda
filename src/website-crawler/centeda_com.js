@@ -45,16 +45,19 @@ const process_html = ($) => {
 }
 
 const get_data = async ({ firstName, lastName, state, city }) => {
-    var url = `https://centeda.com/profile/search?fname=${firstName}&lname=${lastName}&state=${state}&city=${city}`;
+    const cit = city
+
+    var url = `https://centeda.com/profile/search?fname=${firstName}&lname=${lastName}&state=${state}&cit=${cit}`;
     var html, $, data = [];
 
     do {
-        const html = await axios.get(url, { 
+        html = await axios.get(url, { 
             timeout: 1000 * 20, 
         })
 
-        const $ = cheerio.load(html.data);
+        $ = cheerio.load(html.data);
         data = [...data, ...process_html($)]
+        console.log(data)
 
         url = $('[rel=next]').attr()
         url = url && 'https://centeda.com' + url.href
